@@ -52,12 +52,7 @@ app.get('/contacts/:contactId', getContact);
 
 app.get('/contacts', getAllContacts);
 
-
-app.get("/", (req, res) => res.send("Backend is running UwU!"));
-
-
-
-
+app.get("/", (req, res) => res.send("Backend is running wewewe"));
 
 app.listen(port, () => {
   // db.connect();
