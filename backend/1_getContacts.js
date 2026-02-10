@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 dotenv.config(); 
 
 //GET ALL CONTACTS
-export const getAllContacts = async(req, res) => { //ALL
+export const getAllContacts = async(req, res) => { // http://localhost:3001/contacts
   const token = process.env.ACCESS_TOKEN; 
 
   try {
@@ -41,10 +41,10 @@ export const getAllContacts = async(req, res) => { //ALL
     console.error(error.response?.data || error.message);
     res.status(500).send('Error fetching contact');
   }
-}
+} //response.data.contacts
 
 //GET ONE CONTACT
-export const getContact = async(req, res) => {
+export const getContact = async(req, res) => { // http://localhost:3001/contacts/0XvLulGpG7e0cERVYxkc
   const contactId = req.params.CONTACT_ID;
   const token = process.env.ACCESS_TOKEN; 
 
@@ -57,14 +57,30 @@ export const getContact = async(req, res) => {
         'Accept': 'application/json', 
         'Version': '2021-07-28',  
         'Authorization': `Bearer ${token}`
+      },
+      params: { //required
+        locationId: process.env.LOCATION_ID,
+        contactId: contactId
       }
     };
-
+    
     const response = await axios.request(config);
-    res.json(response.data);
+    const contact = response.data.contacts;
 
+    const cleaned = contact.map(c => ({
+      id: c.id,
+      name: c.contactName,
+      email: c.email,
+      phone: c.phone,
+      tags: c.tags
+    }));
+
+    console.log(cleaned);
+
+    // res.json(response.data);
+    res.json(cleaned);
   } catch (error) {
     console.error(error.response?.data || error.message);
     res.status(500).send('Error fetching contact');
   }
-}
+} //response.data.contacts
