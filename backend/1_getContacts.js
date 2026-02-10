@@ -16,13 +16,14 @@ export const getAllContacts = async(req, res) => { //ALL
         'Accept': 'application/json', 
         'Version': '2021-07-28',  
       },
-      params: { // required
+      params: { //required
         locationId: process.env.LOCATION_ID,
         limit: 20
       }
     };
 
     const response = await axios.request(config);
+    const contacts = response.data.contacts;
 
     const cleaned = contacts.map(c => ({
       id: c.id,
@@ -34,7 +35,8 @@ export const getAllContacts = async(req, res) => { //ALL
 
     console.log(cleaned);
 
-    res.json(response.data);
+    // res.json(response.data);
+    res.json(cleaned);
   } catch (error) {
     console.error(error.response?.data || error.message);
     res.status(500).send('Error fetching contact');
