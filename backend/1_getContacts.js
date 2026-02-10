@@ -18,7 +18,7 @@ export const getAllContacts = async(req, res) => { // http://localhost:3001/cont
       },
       params: { //required
         locationId: process.env.LOCATION_ID,
-        limit: 20
+        limit: 10
       }
     };
 
@@ -28,6 +28,8 @@ export const getAllContacts = async(req, res) => { // http://localhost:3001/cont
     const cleaned = contacts.map(c => ({
       id: c.id,
       name: c.contactName,
+      firstName: c.firstName,
+      lastName: c.lastName,
       email: c.email,
       phone: c.phone,
       tags: c.tags
@@ -35,7 +37,7 @@ export const getAllContacts = async(req, res) => { // http://localhost:3001/cont
 
     console.log(cleaned);
 
-    // res.json(response.data);
+    //res.json(response.data);
     res.json(cleaned);
   } catch (error) {
     console.error(error.response?.data || error.message);
