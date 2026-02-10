@@ -18,7 +18,7 @@ export const createContact = async(req, res) => {
     city,
     state,
     postalCode
-  } = req.body; // <-- this is req.body
+  } = req.body; //from frontend
 
   const data = {
     firstName,
@@ -34,7 +34,7 @@ export const createContact = async(req, res) => {
     city,
     state,
     postalCode,
-    locationId: process.env.LOCATION_ID // required by API
+    locationId: process.env.LOCATION_ID //required by API
   };
 
   try {
