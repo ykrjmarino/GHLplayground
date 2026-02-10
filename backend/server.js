@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import qs from 'qs';
 
 import { getAllContacts, getContact } from './1_getContacts.js';
+import { createContact } from './1_postContacts.js';
 
 dotenv.config(); 
 
@@ -49,8 +50,10 @@ app.get('/oauth/callback', async (req, res) => {
 });
 
 app.get('/contacts', getAllContacts); // http://localhost:3001/contacts
-
 app.get('/contacts/:contactId', getContact); // http://localhost:3001/contacts/0XvLulGpG7e0cERVYxkc
+
+app.post('/contacts', createContact);
+
 
 app.get("/", (req, res) => res.send("Backend is running wewewe"));
 
