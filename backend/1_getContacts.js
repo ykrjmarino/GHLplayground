@@ -35,7 +35,8 @@ export const getAllContacts = async(req, res) => { // http://localhost:3001/cont
       tags: c.tags
     }));
 
-    console.log(cleaned);
+    // console.log(cleaned);
+    console.log(response.data);
 
     //res.json(response.data);
     res.json(cleaned);
@@ -46,8 +47,8 @@ export const getAllContacts = async(req, res) => { // http://localhost:3001/cont
 } //response.data.contacts
 
 //GET ONE CONTACT
-export const getContact = async(req, res) => { // http://localhost:3001/contacts/0XvLulGpG7e0cERVYxkc
-  const contactId = req.params.CONTACT_ID;
+export const getContact = async(req, res) => { // http://localhost:3001/contacts/iYJe1RoeQHzlNINySCQi
+  const { contactId } = req.params;
   const token = process.env.ACCESS_TOKEN; 
 
   try {
@@ -67,15 +68,17 @@ export const getContact = async(req, res) => { // http://localhost:3001/contacts
     };
     
     const response = await axios.request(config);
-    const contact = response.data.contacts;
+    const contact = response.data.contact;
 
-    const cleaned = contact.map(c => ({
-      id: c.id,
-      name: c.contactName,
-      email: c.email,
-      phone: c.phone,
-      tags: c.tags
-    }));
+    const cleaned = {
+      id: contact.id,
+      name: contact.contactName,
+      firstName: contact.firstName,
+      lastName: contact.lastName,
+      email: contact.email,
+      phone: contact.phone,
+      tags: contact.tags
+    };
 
     console.log(cleaned);
 
