@@ -6,6 +6,8 @@ import qs from 'qs';
 
 import { getAllContacts, getContact } from './1_getContacts.js';
 import { createContact } from './1_postContacts.js';
+import { updateContact } from './1_putContacts.js';
+import { deleteContact } from './1_deleteContacts.js';
 
 dotenv.config(); 
 
@@ -50,10 +52,13 @@ app.get('/oauth/callback', async (req, res) => {
 });
 
 app.get('/contacts', getAllContacts); // http://localhost:3001/contacts
-app.get('/contacts/:contactId', getContact); // http://localhost:3001/contacts/0XvLulGpG7e0cERVYxkc
+app.get('/contacts/:contactId', getContact); // http://localhost:3001/contacts/iYJe1RoeQHzlNINySCQi
 
 app.post('/contacts', createContact); // http://localhost:3001/contacts
 
+app.put('/contacts/:contactId', updateContact); // http://localhost:3001/contacts/0XvLulGpG7e0cERVYxkc
+
+app.delete('/contacts/:contactId', deleteContact); // http://localhost:3001/contacts/X32l3htDjxda6D2O509r
 
 app.get("/", (req, res) => res.send("Backend is running wewewe"));
 
