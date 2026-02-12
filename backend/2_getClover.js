@@ -1,0 +1,32 @@
+import axios from 'axios';
+import dotenv from 'dotenv';
+dotenv.config(); 
+
+//GET ALL CONTACTS
+export const getCloverCustomers = async(req, res) => {
+  try {
+    const response = await axios.get(
+      `https://apisandbox.dev.clover.com/v3/merchants/${process.env.MERCHANT_ID}/customers`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.CLOVER_TOKEN}`,
+          Accept: 'application/json',
+        },
+      }
+    );
+
+    // Optional: just map the important fields
+    const customers = response.data.elements.map(c => ({
+      id: c.id,
+      firstName: c.firstName,
+      lastName: c.lastName,
+      email: c.email,
+      phone: c.phone,
+    }));
+
+    res.json(customers);
+  } catch (err) {
+    console.error(err.response?.data || err);
+    res.status(500).json({ error: 'Failed to fetch customers' });
+  }
+}

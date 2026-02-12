@@ -9,7 +9,7 @@ import { createContact } from './1_postContacts.js';
 import { updateContact } from './1_putContacts.js';
 import { deleteContact } from './1_deleteContacts.js';
 
-
+import { getCloverCustomers } from './2_getClover.js';
 
 dotenv.config(); 
 
@@ -84,7 +84,7 @@ app.get('/clover/merchant', async (req, res) => { // http://localhost:3001/clove
   }
 });
 
-
+app.get('/clover/customers', getCloverCustomers); 
 
 
 
