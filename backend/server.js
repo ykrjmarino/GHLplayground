@@ -9,7 +9,7 @@ import { createContact } from './1_postContacts.js';
 import { updateContact } from './1_putContacts.js';
 import { deleteContact } from './1_deleteContacts.js';
 
-import { getCloverCustomers } from './2_getClover.js';
+import { getCloverCustomers, getCloverPayments } from './2_getClover.js';
 import { sendToHighLevel } from './2_sentToGHL.js';
 
 dotenv.config(); 
@@ -85,10 +85,11 @@ app.get('/clover/merchant', async (req, res) => { // http://localhost:3001/clove
   }
 });
 
-app.get('/clover/customers', getCloverCustomers); // http://localhost:3001/sync/customers
+app.get('/clover/customers', getCloverCustomers); // https://apisandbox.dev.clover.com/v3/merchants/FPSBMV494SH51/customers
+app.get('/clover/payments', getCloverPayments);
 
 //CLOVER TO GHL
-app.get('/sync/customers', sendToHighLevel);
+app.get('/sync/customers', sendToHighLevel); // http://localhost:3001/sync/customers
 
 
 

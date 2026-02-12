@@ -33,3 +33,32 @@ export const getCloverCustomers = async(req, res) => {
     res.status(500).json({ error: 'Failed to fetch customers' });
   }
 }
+
+
+//GET ALL PAYMENTS
+export const getCloverPayments = async (req, res) => {
+  try {
+    const response = await axios.get(
+      `${process.env.CLOVER_BASE}/v3/merchants/${process.env.MERCHANT_ID}/payments`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.CLOVER_TOKEN}`,
+          Accept: 'application/json',
+        },
+      }
+    );
+
+    const payments = response.data.elements.map(p => ({
+      id: p.id,
+      amount: p.amount,
+      createdTime: p.createdTime,
+      employeeId: p.employee?.id,
+      orderId: p.order?.id,
+    }));
+
+    res.json(payments);
+  } catch (err) {
+    console.error(err.response?.data || err);
+    res.status(500).json({ error: 'Failed to fetch payments' });
+  }
+};
