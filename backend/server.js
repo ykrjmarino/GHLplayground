@@ -9,6 +9,8 @@ import { createContact } from './1_postContacts.js';
 import { updateContact } from './1_putContacts.js';
 import { deleteContact } from './1_deleteContacts.js';
 
+
+
 dotenv.config(); 
 
 const app = express();
@@ -59,6 +61,37 @@ app.post('/contacts', createContact); // http://localhost:3001/contacts
 app.put('/contacts/:contactId', updateContact); // http://localhost:3001/contacts/0XvLulGpG7e0cERVYxkc
 
 app.delete('/contacts/:contactId', deleteContact); // http://localhost:3001/contacts/X32l3htDjxda6D2O509r
+
+
+
+
+//CLOVER
+app.get('/clover/merchant', async (req, res) => { // http://localhost:3001/clover/merchant
+  try {
+    const response = await axios.get(
+      `https://apisandbox.dev.clover.com/v3/merchants/${process.env.MERCHANT_ID}`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.CLOVER_TOKEN}`,
+          Accept: 'application/json',
+        },
+      }
+    );
+    res.json(response.data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to fetch merchant' });
+  }
+});
+
+
+
+
+
+
+
+
+
 
 app.get("/", (req, res) => res.send("Backend is running wewewe"));
 
