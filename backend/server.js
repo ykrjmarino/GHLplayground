@@ -10,6 +10,7 @@ import { updateContact } from './1_putContacts.js';
 import { deleteContact } from './1_deleteContacts.js';
 
 import { getCloverCustomers } from './2_getClover.js';
+import { sendToHighLevel } from './2_sentToGHL.js';
 
 dotenv.config(); 
 
@@ -84,7 +85,10 @@ app.get('/clover/merchant', async (req, res) => { // http://localhost:3001/clove
   }
 });
 
-app.get('/clover/customers', getCloverCustomers); 
+app.get('/clover/customers', getCloverCustomers); // http://localhost:3001/sync/customers
+
+//CLOVER TO GHL
+app.get('/sync/customers', sendToHighLevel);
 
 
 

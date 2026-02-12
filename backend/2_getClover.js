@@ -16,13 +16,16 @@ export const getCloverCustomers = async(req, res) => {
     );
 
     // Optional: just map the important fields
-    const customers = response.data.elements.map(c => ({
-      id: c.id,
-      firstName: c.firstName,
-      lastName: c.lastName,
-      email: c.email,
-      phone: c.phone,
-    }));
+    const customers = response.data.elements.map(c => {
+      const customer = {
+        id: c.id,
+        firstName: c.firstName || '',
+        lastName: c.lastName || '',
+      };
+      if (c.email) customer.email = c.email;
+      if (c.phone) customer.phone = c.phone;
+      return customer;
+    });
 
     res.json(customers);
   } catch (err) {
